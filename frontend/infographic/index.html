@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>50 Startups 獲利預測與貝氏特徵分析實務海報 | Infographic</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Architects Daughter (Handwritten), Noto Sans TC, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Noto+Sans+TC:wght@400;500;700;900&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* Force exact print colors */
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      background-color: #faf9f5;
+      /* Grid paper background effect */
+      background-image: radial-gradient(rgba(30, 41, 59, 0.05) 1.5px, transparent 1.5px);
+      background-size: 20px 20px;
+      color: #1e293b;
+    }
+
+    .handwritten {
+      font-family: 'Architects Daughter', cursive;
+    }
+
+    /* Hand-drawn sketchy border effect */
+    .sketchy-border {
+      border: 2px solid #1e293b;
+      border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    }
+
+    .sketchy-card {
+      background-color: #ffffff;
+      border: 2px solid #1e293b;
+      border-radius: 8px 3px 10px 4px/4px 10px 3px 8px;
+      box-shadow: 4px 4px 0px #1e293b;
+    }
+
+    /* Custom highlighters */
+    .note-yellow {
+      background-color: #fef08a;
+    }
+
+    .note-green {
+      background-color: #bbf7d0;
+    }
+
+    .note-blue {
+      background-color: #bfdbfe;
+    }
+
+    /* Print styling strictly optimized for single A4 portrait page */
+    @page {
+      size: A4 portrait;
+      margin: 0 !important;
+    }
+
+    @media print {
+
+      html,
+      body {
+        background-color: #ffffff !important;
+        background-image: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        min-height: 0 !important;
+        max-height: 297mm !important;
+        overflow: hidden !important;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+
+      .print-container {
+        width: 210mm !important;
+        height: 297mm !important;
+        min-height: 0 !important;
+        max-height: 297mm !important;
+        padding: 10mm 12mm !important;
+        box-sizing: border-box !important;
+        background: #ffffff !important;
+        border: none !important;
+        box-shadow: none !important;
+        overflow: hidden !important;
+        border-radius: 0 !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="p-4 md:p-8">
+
+  <!-- Action Toolbar (Screen Only) -->
+  <div
+    class="max-w-[800px] mx-auto mb-6 flex justify-between items-center gap-4 bg-white p-4 sketchy-border shadow-sm no-print">
+    <a href="../index.html"
+      class="flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-700 rounded-lg text-sm font-bold transition-all duration-150">
+      &larr; 返回主工作區
+    </a>
+    <div class="flex items-center gap-3">
+      <span class="text-xs text-slate-500 hidden sm:inline">💡 提示：在列印設定中啟用「背景圖形」以獲得最佳質感</span>
+      <button onclick="window.print()"
+        class="flex items-center gap-2 px-5 py-2.5 bg-yellow-400 hover:bg-yellow-300 border-2 border-slate-800 text-slate-900 font-extrabold text-sm rounded-lg shadow-[3px_3px_0px_#1e293b] hover:translate-y-[-1px] active:translate-y-[1px] transition-all">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z" />
+        </svg>
+        儲存/列印 A4 海報
+      </button>
+    </div>
+  </div>
+
+  <!-- A4 Infographic Print Container (Target size: 794px by 1123px) -->
+  <div
+    class="print-container max-w-[800px] min-h-[1130px] mx-auto bg-white sketchy-border p-6 flex flex-col justify-between relative overflow-hidden bg-opacity-95">
+
+    <!-- Top Decorative Line -->
+    <div class="absolute top-0 left-0 right-0 h-1.5 bg-slate-800"></div>
+
+    <!-- Header Block -->
+    <div class="border-b-2 border-dashed border-slate-700 pb-3 mb-4">
+      <div class="flex justify-between items-start">
+        <div>
+          <div
+            class="inline-flex items-center gap-1.5 px-3 py-0.5 border-2 border-slate-800 bg-blue-100 text-[10px] font-black uppercase tracking-wider text-slate-800 mb-1 rounded">
+            📚 CRISP-DM DATA SCIENCE CASE STUDY
+          </div>
+          <h1 class="text-2xl font-black tracking-tight text-slate-900 handwritten mt-1">
+            50 Startups 獲利預測與特徵工程實務指南
+          </h1>
+          <p class="text-xs text-slate-500 font-semibold mt-1">
+            Excalidraw Whiteboard Style InfoGraphic • Quantitative Analysis Poster
+          </p>
+        </div>
+        <div class="text-right flex flex-col items-end gap-1">
+          <div class="text-[9px] font-bold text-slate-400">專案貢獻團隊</div>
+          <div class="px-2 py-0.5 border border-slate-700 rounded bg-yellow-50 text-[10px] font-bold text-slate-800">
+            017 產業量化分析研究團隊
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CRISP-DM Workflow Step Navigation (SVG decision pipeline) -->
+    <div class="relative w-full h-[100px] bg-slate-50 rounded-lg border-2 border-slate-800 p-2 overflow-hidden mb-4">
+      <div class="absolute inset-0 opacity-10"
+        style="background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 8px 8px;"></div>
+
+      <!-- SVG Connectors -->
+      <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 740 100" preserveAspectRatio="none">
+        <path d="M 60,50 L 680,50" fill="none" stroke="#1e293b" stroke-width="2" stroke-dasharray="6,4" />
+      </svg>
+
+      <!-- Step Nodes -->
+      <div class="relative w-full h-full flex justify-between items-center px-4">
+        <!-- Step 1 -->
+        <div class="flex flex-col items-center">
+          <div
+            class="w-8 h-8 rounded-full border-2 border-slate-800 note-yellow flex items-center justify-center font-bold text-xs handwritten shadow-[2px_2px_0px_#1e293b]">
+            1</div>
+          <span class="text-[9px] font-black text-slate-700 mt-1">商業理解</span>
+        </div>
+        <!-- Step 2 -->
+        <div class="flex flex-col items-center">
+          <div
+            class="w-8 h-8 rounded-full border-2 border-slate-800 note-blue flex items-center justify-center font-bold text-xs handwritten shadow-[2px_2px_0px_#1e293b]">
+            2</div>
+          <span class="text-[9px] font-black text-slate-700 mt-1">數據理解</span>
+        </div>
+        <!-- Step 3 -->
+        <div class="flex flex-col items-center">
+          <div
+            class="w-8 h-8 rounded-full border-2 border-slate-800 bg-pink-200 flex items-center justify-center font-bold text-xs handwritten shadow-[2px_2px_0px_#1e293b]">
+            3</div>
+          <span class="text-[9px] font-black text-slate-700 mt-1">數據準備</span>
+        </div>
+        <!-- Step 4 -->
+        <div class="flex flex-col items-center">
+          <div
+            class="w-8 h-8 rounded-full border-2 border-slate-800 bg-purple-200 flex items-center justify-center font-bold text-xs handwritten shadow-[2px_2px_0px_#1e293b]">
+            4</div>
+          <span class="text-[9px] font-black text-slate-700 mt-1">模型建構</span>
+        </div>
+        <!-- Step 5 -->
+        <div class="flex flex-col items-center">
+          <div
+            class="w-8 h-8 rounded-full border-2 border-slate-800 note-green flex items-center justify-center font-bold text-xs handwritten shadow-[2px_2px_0px_#1e293b]">
+            5</div>
+          <span class="text-[9px] font-black text-slate-700 mt-1">模型評估</span>
+        </div>
+        <!-- Step 6 -->
+        <div class="flex flex-col items-center">
+          <div
+            class="w-8 h-8 rounded-full border-2 border-slate-800 bg-orange-200 flex items-center justify-center font-bold text-xs handwritten shadow-[2px_2px_0px_#1e293b]">
+            6</div>
+          <span class="text-[9px] font-black text-slate-700 mt-1">系統部署</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bento Grid Layout -->
+    <div class="grid grid-cols-2 gap-4 flex-1">
+
+      <!-- Card 1: 專案目標與商業脈絡 -->
+      <div class="sketchy-card note-yellow p-4 flex flex-col justify-between">
+        <div>
+          <h3 class="font-extrabold text-sm text-slate-800 border-b border-slate-700/30 pb-1 mb-2 handwritten">
+            📌 CRISP-DM 階段一：商業理解與決策痛點
+          </h3>
+          <p class="text-[10px] text-slate-700 leading-relaxed">
+            風險投資機構（VC）在評估早期新創公司時，面臨財務數據極度稀疏、且預算分配對獲利貢獻缺乏量化證明的難題。
+          </p>
+          <ul class="text-[9.5px] text-slate-800 mt-2 space-y-1 list-disc pl-3">
+            <li><b>研發支出 (R&D)</b> 是否具備實質邊際效益？</li>
+            <li><b>行銷推廣 (Marketing)</b> 投資是否能帶來正向獲利回報？</li>
+            <li><b>行政開支 (Administration)</b> 是否屬於非生產性固定成本？</li>
+            <li><b>設立地區 (State)</b> 是否存在顯著政策與稅率效應？</li>
+          </ul>
+        </div>
+        <div class="mt-3 bg-white bg-opacity-50 p-2 rounded border border-yellow-300 text-[9px] text-slate-600">
+          💡 <b>模型任務</b>：透過建構白盒化迴歸模型，量化預算邊際回報率，並給出帶有統計信賴區間的利潤預估，輔助科學化創投決策。
+        </div>
+      </div>
+
+      <!-- Card 2: 類別特徵編碼 OHE vs BTE 對決 -->
+      <div class="sketchy-card note-blue p-4 flex flex-col justify-between">
+        <div>
+          <h3 class="font-extrabold text-sm text-slate-800 border-b border-slate-700/30 pb-1 mb-2 handwritten">
+            🔍 類別特徵編碼：OHE vs. Beta 目標編碼
+          </h3>
+          <p class="text-[10px] text-slate-700 leading-relaxed mb-2">
+            將登記州別 (State) 映射為數值特徵的兩大方案：
+          </p>
+          <div class="space-y-2">
+            <div class="bg-white bg-opacity-70 p-1.5 rounded border border-blue-300">
+              <span class="text-[9px] font-bold text-blue-700 block">1. One-Hot Encoding & 虛擬變數陷阱</span>
+              <p class="text-[9px] text-slate-600 leading-tight">
+                若將所有指示列與常數項一同放入模型，會導致：
+              </p>
+              <div class="font-mono text-[9.5px] text-red-600 text-center font-bold my-0.5">
+                v_CA + v_FL + v_NY = 1
+              </div>
+              <p class="text-[8.5px] text-slate-500">
+                完美共線性導致矩陣 X^T X 不可逆。對策：丟棄首個類別 (California) 作基準。
+              </p>
+            </div>
+
+            <div class="bg-white bg-opacity-70 p-1.5 rounded border border-blue-300">
+              <span class="text-[9px] font-bold text-blue-700 block">2. Beta Target Encoding (貝氏目標編碼)</span>
+              <p class="text-[9px] text-slate-600 leading-tight">
+                將連續 Profit 正規化至 [0, 1]，建立 Beta 後驗均值與方差：
+              </p>
+              <div class="font-mono text-[9px] text-blue-800 text-center font-bold my-0.5">
+                E[y_norm|c] = (S_c + m·p) / (n_c + m)
+              </div>
+              <p class="text-[8.5px] text-slate-500">
+                本項目僅 3 類，BTE 屬<b>學術冗餘與過度設計</b>；但可作為處理<b>高基數特徵</b>防過擬合與壓縮特徵的 <b>PoC 概念驗證</b>。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: OLS 多元線性迴歸求解與統計推論 -->
+      <div class="sketchy-card p-4 flex flex-col justify-between col-span-2">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <h3 class="font-extrabold text-sm text-slate-800 border-b border-slate-700/30 pb-1 mb-2 handwritten">
+              📐 OLS 解析求解與高斯-馬可夫假定
+            </h3>
+            <p class="text-[10px] text-slate-700 leading-relaxed mb-2">
+              本專案拒絕黑盒，採用最小平方法 (OLS) 解析閉式解直接求解係數矩陣：
+            </p>
+            <div
+              class="bg-slate-50 p-2 rounded border-2 border-slate-800 text-center font-mono text-xs font-bold text-blue-700 my-2 shadow-[2px_2px_0px_#1e293b]">
+              beta = (X^T * X)^(-1) * X^T * y
+            </div>
+            <p class="text-[9px] text-slate-500">
+              並驗證高斯-馬可夫定理五大核心假設：<br>
+              1. 參數線性關係 2. 隨機抽樣 3. 無完全共線性 4. 誤差項零條件期望 5. 誤差項同變異且無自相關。
+            </p>
+          </div>
+          <div>
+            <h3 class="font-extrabold text-sm text-slate-800 border-b border-slate-700/30 pb-1 mb-2 handwritten">
+              📊 統計假設診斷與白盒推論
+            </h3>
+            <div class="space-y-1.5 mt-1">
+              <div class="flex items-start gap-1 text-[9.5px]">
+                <span class="text-green-600">✔</span>
+                <span><b>VIF 共線性檢測</b>：特徵膨脹因子 VIF < 5，確保係數估計無多重共線性發散風險。</span>
+              </div>
+              <div class="flex items-start gap-1 text-[9.5px]">
+                <span class="text-green-600">✔</span>
+                <span><b>殘差 Q-Q 常態檢定</b>：殘差分位數點緊密分布於對角線，符合常態分佈，保障統計推論與 p 值有效性。</span>
+              </div>
+              <div class="flex items-start gap-1 text-[9.5px]">
+                <span class="text-green-600">✔</span>
+                <span><b>異質變異檢定</b>：殘差 vs 擬合值散佈圖呈均勻隨機帶狀分布，支持同變異假設。</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: 運營預算邊際回報分析 (OLS Coefficients) -->
+      <div class="sketchy-card note-green p-4 flex flex-col justify-between">
+        <div>
+          <h3 class="font-extrabold text-sm text-slate-800 border-b border-slate-700/30 pb-1 mb-2 handwritten">
+            💰 預算分配邊際回報分析 (OLS Coefficients)
+          </h3>
+          <p class="text-[10px] text-slate-700 leading-relaxed mb-2">
+            根據 OLS 擬合結果，解析三大預算投入的邊際利潤貢獻：
+          </p>
+          <div class="space-y-2">
+            <div class="bg-white bg-opacity-70 p-1.5 rounded border border-green-300">
+              <div class="flex justify-between items-center font-bold text-[9.5px] text-slate-800">
+                <span>🧪 研發支出 (R&D Spend)</span>
+                <span class="text-green-700">係數: ~0.8057</span>
+              </div>
+              <p class="text-[8.5px] text-slate-600">
+                每增加 $1 研發投入，預期獲利顯著增加 $0.81。p 值為 0.0000（強顯著）。<b>決策：優先配置的最核心引擎。</b>
+              </p>
+            </div>
+
+            <div class="bg-white bg-opacity-70 p-1.5 rounded border border-green-300">
+              <div class="flex justify-between items-center font-bold text-[9.5px] text-slate-800">
+                <span>📢 市場行銷 (Marketing Spend)</span>
+                <span class="text-blue-700">係數: ~0.0272</span>
+              </div>
+              <p class="text-[8.5px] text-slate-600">
+                每增加 $1 行銷投入，利潤邊際增加 $0.03。p 值約為 0.10（弱顯著，具正向輔助效應）。<b>決策：次優先投入。</b>
+              </p>
+            </div>
+
+            <div class="bg-white bg-opacity-70 p-1.5 rounded border border-green-300">
+              <div class="flex justify-between items-center font-bold text-[9.5px] text-slate-800">
+                <span>🏢 行政管理 (Administration)</span>
+                <span class="text-red-700">係數: ~-0.0268</span>
+              </div>
+              <p class="text-[8.5px] text-slate-600">
+                邊際影響極小且為負，p 值遠大於 0.05（不顯著，白噪音）。<b>決策：列為固定成本控管，不宜追加預算。</b>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5: 模型效能指標對照表 -->
+      <div class="sketchy-card p-4 flex flex-col justify-between">
+        <div>
+          <h3 class="font-extrabold text-sm text-slate-800 border-b border-slate-700/30 pb-1 mb-2 handwritten">
+            🏆 OHE 與 BTE 性能對比與實驗結果
+          </h3>
+          <p class="text-[10px] text-slate-700 leading-relaxed mb-2">
+            模型在隨機 80/20 劃分下的測試集泛化效能表現：
+          </p>
+          <table class="w-full text-left text-[9px] border-collapse my-2">
+            <thead>
+              <tr class="border-b-2 border-slate-800 bg-slate-50">
+                <th class="py-1 px-1 font-bold">編碼模式</th>
+                <th class="py-1 px-1 font-bold">參數</th>
+                <th class="py-1 px-1 font-bold text-center">測試集 R²</th>
+                <th class="py-1 px-1 font-bold text-right">MAE (USD)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-slate-200">
+                <td class="py-1 px-1">One-Hot (OHE)</td>
+                <td class="py-1 px-1">California 基底</td>
+                <td class="py-1 px-1 text-center font-mono">0.9475</td>
+                <td class="py-1 px-1 text-right font-mono">$6,742.30</td>
+              </tr>
+              <tr class="border-b border-slate-200 bg-green-50/50">
+                <td class="py-1 px-1 font-bold text-green-700">Beta Target (BTE)</td>
+                <td class="py-1 px-1 font-bold text-green-700">平滑 m = 2.0</td>
+                <td class="py-1 px-1 text-center font-mono font-bold text-green-700">0.9482</td>
+                <td class="py-1 px-1 text-right font-mono font-bold text-green-700">$6,552.12</td>
+              </tr>
+              <tr class="border-b border-slate-200">
+                <td class="py-1 px-1">Beta Target (BTE)</td>
+                <td class="py-1 px-1">平滑 m = 10.0</td>
+                <td class="py-1 px-1 text-center font-mono">0.9410</td>
+                <td class="py-1 px-1 text-right font-mono">$7,220.10</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="text-[8.5px] text-slate-500 leading-tight">
+            當平滑係數設定為 m = 2.0 時，藉由貝氏後驗更新，成功濾除了低樣本州別的雜訊，測試集 MAE 相比 OHE 降低了 $190.18，展現最佳的泛化能力。
+          </p>
+        </div>
+        <div class="mt-3 bg-blue-50 p-2 rounded border border-blue-200 text-[9px] text-slate-600">
+          ⚙️ <b>系統架構</b>：前端單頁網頁 (HTML5/Vanilla JS) 與獨立 FastAPI 後端服務進行非同步 Fetch 數據通訊，完全移除了 Streamlit 框架的雜訊。
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer Block -->
+    <div
+      class="border-t-2 border-slate-800 pt-3 mt-4 flex justify-between items-center text-[9px] text-slate-500 font-semibold">
+      <div>新創獲利預測與特徵分析平台 • 機器學習實務海報 © 2026</div>
+      <div>本專案遵循 CRISP-DM 資料探勘生命週期標準規範</div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

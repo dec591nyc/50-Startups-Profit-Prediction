@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>50 Startups Profit Prediction Tutorial (Excalidraw Whiteboard Style)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header Section -->
+    <header>
+      <div class="logo-section">
+        <h1>50 Startups Profit Prediction</h1>
+        <span>CRISP-DM 白板學習手冊</span>
+      </div>
+      <div class="controls-section">
+        <button id="view-deck-btn" class="sketch-btn active">投影片模式</button>
+        <button id="view-grid-btn" class="sketch-btn">畫布網格模式</button>
+        <button id="view-table-btn" class="sketch-btn">對照表格模式</button>
+        <button id="print-btn" class="sketch-btn">
+          <svg class="sketch-icon" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>列印/匯出 PDF
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="workspace">
+      <!-- Sidebar Filters -->
+      <aside class="sidebar">
+        <h3 class="sidebar-title">
+          <svg class="sketch-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2 6.3-6.4 1.9 2-6.3z"/></svg>導覽與過濾器
+        </h3>
+        
+        <div class="filter-group">
+          <span class="filter-label">CRISP-DM 階段篩選</span>
+          <label class="checkbox-label">
+            <input type="checkbox" class="phase-filter" value="all" checked>
+            <span>顯示全部階段</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" class="phase-filter" value="business" checked>
+            <span>1. 商業理解</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" class="phase-filter" value="data-understanding" checked>
+            <span>2. 數據理解</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" class="phase-filter" value="data-preparation" checked>
+            <span>3. 數據準備</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" class="phase-filter" value="modeling" checked>
+            <span>4. 模型建構</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" class="phase-filter" value="evaluation" checked>
+            <span>5. 模型評估</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" class="phase-filter" value="deployment" checked>
+            <span>6. 模型部署</span>
+          </label>
+        </div>
+
+        <div class="filter-group" style="margin-top: 2rem;">
+          <span class="filter-label" style="display: flex; align-items: center;">
+            <svg class="sketch-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .5 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5m1.5-5.5h3m-3 3h1.5M9 18h6m-5 4h4"/></svg>專案核心特色
+          </span>
+          <p style="font-size: 0.85rem; line-height: 1.5; opacity: 0.8; margin-top: 0.5rem;">
+            * **多元共線性避免** (OHE 丟棄首欄)<br>
+            * **貝氏後驗平滑** (Beta Target Encoding)<br>
+            * **白盒化統計檢定** (t-stat & p-value)<br>
+            * **高解析度 A4 列印** (頁面不折斷)
+          </p>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="main-board">
+        <!-- 1. Slide Deck View / Grid View -->
+        <div id="slides-container" class="slides-wrapper">
+          
+          <!-- Slide 1: Cover -->
+          <article class="slide-card active" data-phase="business" id="slide-1">
+            <div class="slide-header">
+              <span class="slide-number">01 / 07</span>
+              <h3 class="handwritten">CRISP-DM Phase 1</h3>
+            </div>
+            <div class="slide-body">
+              <h2 class="handwritten" style="font-size: 2.2rem; margin-bottom: 1rem; color: var(--primary-color);">50 Startups 利潤預測與分析教學</h2>
+              <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">
+                本手冊以 **CRISP-DM (Cross-Industry Standard Process for Data Mining)** 流程為主軸，詳細解說如何使用多元線性迴歸模型，對 50 家新創公司的運營支出與利潤進行預測。
+              </p>
+              <div class="postit-grid">
+                <div class="postit yellow">
+                  <h4 class="postit-title">
+                    <svg class="sketch-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>商業目標 (Business Goal)
+                  </h4>
+                  <p style="font-size: 0.95rem;">評估新創公司研發、行政與行銷支出對最終利潤的影響力，為風險投資 (VC) 提供科學化的估值與投資決策輔助。</p>
+                </div>
+                <div class="postit blue">
+                  <h4 class="postit-title">
+                    <svg class="sketch-icon" viewBox="0 0 24 24"><path d="M6 3h12M12 3v14M9 12h6M4 21h16c0-4-3-8-8-8s-8 4-8 8z"/></svg>建模技術 (ML Tech)
+                  </h4>
+                  <p style="font-size: 0.95rem;">自研 OLS 多元線性迴歸，對比傳統的單熱編碼 (OHE) 與進階的貝氏 Beta 目標編碼 (BTE)，探討連續目標編碼在迴歸中的應用。</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 2: Business Understanding -->
+          <article class="slide-card" data-phase="business" id="slide-2">
+            <div class="slide-header">
+              <span class="slide-number">02 / 07</span>
+              <h3 class="handwritten">CRISP-DM Phase 1: 商業理解</h3>
+            </div>
+            <div class="slide-body">
+              <h2 class="handwritten" style="margin-bottom: 1rem;">理清商業脈絡與利潤驅動因子</h2>
+              <p>在機器學習專案中，盲目套用演算法是無效的。我們必須首先定義商業邏輯與核心考量：</p>
+              <div class="postit-grid">
+                <div class="postit green">
+                  <h4 class="postit-title">
+                    <svg class="sketch-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M15 8H10.5a2.5 2.5 0 0 0 0 5H14a2.5 2.5 0 0 1 0 5H8.5"/></svg>投資報酬率 (ROI) 分析
+                  </h4>
+                  <p style="font-size: 0.95rem;">研發經費 (R&D) 是否如預期般帶來最高的邊際效益？行銷支出 (Marketing) 的效益是否呈現線性增長？行政成本 (Administration) 是否屬於純固定損耗？</p>
+                </div>
+                <div class="postit yellow">
+                  <h4 class="postit-title">
+                    <svg class="sketch-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>地理區位決策
+                  </h4>
+                  <p style="font-size: 0.95rem;">新創公司位於 California、New York 還是 Florida，是否會因為當地政策、稅率或產業群聚效應，影響其利潤率？這要求我們精準處理 categorical 變數。</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 3: Data Understanding -->
+          <article class="slide-card" data-phase="data-understanding" id="slide-3">
+            <div class="slide-header">
+              <span class="slide-number">03 / 07</span>
+              <h3 class="handwritten">CRISP-DM Phase 2: 數據理解</h3>
+            </div>
+            <div class="slide-body">
+              <h2 class="handwritten" style="margin-bottom: 1rem;">數據集特徵探索與關聯分析</h2>
+              <p>「50 Startups」數據集包含 50 家公司的 5 個核心特徵：</p>
+              
+              <div class="compare-container">
+                <div class="compare-card">
+                  <h4 class="handwritten" style="color: var(--primary-color); margin-bottom: 0.5rem;">
+                    <svg class="sketch-icon" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6M2 20h20"/></svg>輸入特徵 (Features)
+                  </h4>
+                  <ul style="padding-left: 1.2rem; line-height: 1.8;">
+                    <li>**R&D Spend**: 研發經費投入 (連續數值)</li>
+                    <li>**Administration**: 行政管理花費 (連續數值)</li>
+                    <li>**Marketing Spend**: 行銷推廣費用 (連續數值)</li>
+                    <li>**State**: 公司登記州別 (類別特徵，含 New York, California, Florida)</li>
+                  </ul>
+                </div>
+                <div class="compare-card">
+                  <h4 class="handwritten" style="color: #10b981; margin-bottom: 0.5rem;">
+                    <svg class="sketch-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>目標變數 (Target)
+                  </h4>
+                  <p>**Profit**: 公司歷史獲利金額 (連續數值，預測目標)</p>
+                  <div class="math-block" style="margin-top: 1rem; font-size: 0.95rem;">
+                    強正相關性：R&D Spend ↔ Profit (r ≈ 0.97)<br>
+                    中正相關性：Marketing Spend ↔ Profit (r ≈ 0.75)<br>
+                    無顯著相關：Administration ↔ Profit (r ≈ 0.20)
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 4: Data Preparation -->
+          <article class="slide-card" data-phase="data-preparation" id="slide-4">
+            <div class="slide-header">
+              <span class="slide-number">04 / 07</span>
+              <h3 class="handwritten">CRISP-DM Phase 3: 數據準備</h3>
+            </div>
+            <div class="slide-body">
+              <h2 class="handwritten" style="margin-bottom: 1rem;">類別特徵編碼：One-Hot  vs. Beta Target Encoding</h2>
+              <p>為了將「State」類別轉換為數值輸入，我們實作了兩種特異化編碼架構：</p>
+              
+              <div class="compare-container">
+                <div class="compare-card">
+                  <h4 class="handwritten" style="color: #3b82f6; margin-bottom: 0.5rem;">1. One-Hot Encoding (單熱編碼)</h4>
+                  <p style="font-size: 0.9rem; line-height: 1.5;">
+                    為每個類別建立二元特徵（0 或 1）。為了防範**虛擬變數陷阱 (Dummy Variable Trap)** 造成的完全共線性（導致矩陣 $X^T X$ 不可逆），我們必須**丟棄首欄**（例如 California），只保留 New York 與 Florida。
+                  </p>
+                </div>
+                <div class="compare-card">
+                  <h4 class="handwritten" style="color: #10b981; margin-bottom: 0.5rem;">2. Beta Target Encoding (貝氏目標編碼)</h4>
+                  <p style="font-size: 0.9rem; line-height: 1.5;">
+                    這是一種平滑目標編碼。我們將 Profit 正規化至 $[0,1]$，以全域均值作為貝氏先驗 $Beta(\alpha, \beta)$。對於某個州，計算觀測個數 $n_c$ 與正規化利潤和 $S_c$，得出後驗均值：
+                  </p>
+                  <div class="math-block" style="font-size: 0.9rem; padding: 0.5rem;">
+                    encoded_val = (S_c + m * p) / (n_c + m)
+                  </div>
+                  <p style="font-size: 0.85rem; opacity: 0.8;">
+                    此外，我們還提取了**後驗方差**特徵，用來表徵該州利潤的分佈波動性！
+                  </p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 5: Modeling -->
+          <article class="slide-card" data-phase="modeling" id="slide-5">
+            <div class="slide-header">
+              <span class="slide-number">05 / 07</span>
+              <h3 class="handwritten">CRISP-DM Phase 4: 模型建構</h3>
+            </div>
+            <div class="slide-body">
+              <h2 class="handwritten" style="margin-bottom: 1rem;">多元線性迴歸與矩陣解析解</h2>
+              <p>本專案拒絕黑盒，採用最小平方法 (Ordinary Least Squares, OLS) 的數學閉式解 (Closed-form solution) 計算迴歸係數：</p>
+              
+              <div class="math-block">
+                &beta; = (X<sup>T</sup> X)<sup>-1</sup> X<sup>T</sup> y
+              </div>
+              
+              <p style="margin-bottom: 1rem;">線性迴歸的有效性建立在**高斯-馬可夫定理**的五大基本假設之上：</p>
+              <div class="postit-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                <div class="postit yellow" style="font-size: 0.85rem; padding: 1rem;">
+                  <strong>1. 線性關係 (Linearity)</strong><br>自變數與因變數間需具備線性結構關係。
+                </div>
+                <div class="postit blue" style="font-size: 0.85rem; padding: 1rem;">
+                  <strong>2. 無共線性 (No Multicollinearity)</strong><br>自變數之間無高度關聯（藉由 VIF 指標監控）。
+                </div>
+                <div class="postit green" style="font-size: 0.85rem; padding: 1rem;">
+                  <strong>3. 誤差同變異 (Homoscedasticity)</strong><br>殘差在不同擬合值下的波動方差應保持恆定。
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 6: Evaluation -->
+          <article class="slide-card" data-phase="evaluation" id="slide-6">
+            <div class="slide-header">
+              <span class="slide-number">06 / 07</span>
+              <h3 class="handwritten">CRISP-DM Phase 5: 模型評估</h3>
+            </div>
+            <div class="slide-body">
+              <h2 class="handwritten" style="margin-bottom: 1rem;">性能評估指標與顯著性分析</h2>
+              <p>我們採用多重統計指標來客觀評判 One-Hot 編碼與 Beta 目標編碼模型的擬合表現：</p>
+              
+              <table class="sketch-table" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                <thead>
+                  <tr>
+                    <th>指標名稱</th>
+                    <th>定義公式</th>
+                    <th>商業/統計學解釋</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>**MAE** (平均絕對誤差)</td>
+                    <td>1/n &Sigma; |y - pred|</td>
+                    <td>平均預測利潤與真實利潤的絕對偏差（最直觀）。</td>
+                  </tr>
+                  <tr>
+                    <td>**RMSE** (均方根誤差)</td>
+                    <td>&radic;(1/n &Sigma; (y - pred)²)</td>
+                    <td>對大誤差給予更高懲罰的偏差指標。</td>
+                  </tr>
+                  <tr>
+                    <td>**R²** (判定係數)</td>
+                    <td>1 - (SS_res / SS_tot)</td>
+                    <td>模型能解釋的變異比例（越接近 1 越好）。</td>
+                  </tr>
+                  <tr>
+                    <td>**Adj R²** (調整判定係數)</td>
+                    <td>考慮特徵數量懲罰項</td>
+                    <td>防範隨意新增無關特徵導致 R² 虛高，真正判定特徵實質效益。</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <!-- Slide 7: Deployment -->
+          <article class="slide-card" data-phase="deployment" id="slide-7">
+            <div class="slide-header">
+              <span class="slide-number">07 / 07</span>
+              <h3 class="handwritten">CRISP-DM Phase 6: 模型部署</h3>
+            </div>
+            <div class="slide-body">
+              <h2 class="handwritten" style="margin-bottom: 1rem;">模型落地：FastAPI + Vanilla JS 互動系統</h2>
+              <p>模型建置完成後的最後一步是**部署 (Deployment)**。我們將模型部署於 FastAPI 後端，並藉由 Vanilla JS 前端單頁應用 (SPA) 提供商業用戶即時決策支援：</p>
+              
+              <div class="postit-grid">
+                <div class="postit blue" style="transform: rotate(1.5deg);">
+                  <h4 class="postit-title">
+                    <svg class="sketch-icon" viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M2 14h4M10 8h4M18 12h4"/></svg>即時動態模擬
+                  </h4>
+                  <p style="font-size: 0.9rem;">使用者可以手動拖曳「研發經費」、「行政支出」、「行銷預算」滑桿，並選取新創公司所在州別，即時取得利潤預估數值。</p>
+                </div>
+                <div class="postit yellow" style="transform: rotate(-1deg);">
+                  <h4 class="postit-title">
+                    <svg class="sketch-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>貝氏平滑即時觀察
+                  </h4>
+                  <p style="font-size: 0.9rem;">在 BTE 模式下，可以拉動「平滑參數 m」數值，即時重新配適迴歸，觀察模型對異常值（Outliers）與稀疏數據的抗噪能力。</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- 2. Table View Content (hidden by default) -->
+        <div id="table-container" class="table-view-container" style="display: none;">
+          <h2 class="handwritten" style="margin-bottom: 1rem;">CRISP-DM 流程與機器學習建模對照表</h2>
+          <table class="sketch-table">
+            <thead>
+              <tr>
+                <th>CRISP-DM 階段</th>
+                <th>核心步驟與目標</th>
+                <th>本專案實作項目</th>
+                <th>輸出成果</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>**1. 商業理解**</td>
+                <td>定義專案痛點與利潤建模目標</td>
+                <td>新創公司運營預算邊際效應分析</td>
+                <td>商業目標定義、技術路線規畫書</td>
+              </tr>
+              <tr>
+                <td>**2. 數據理解**</td>
+                <td>探索性數據分析 (EDA) 與品質檢查</td>
+                <td>特徵相關性矩陣、散佈趨勢圖</td>
+                <td>R&D Spend 與 Profit 強相關性發現</td>
+              </tr>
+              <tr>
+                <td>**3. 數據準備**</td>
+                <td>清洗、特徵工程與類別特徵編碼</td>
+                <td>實作 One-Hot Encoding (丟棄首欄) 與 Beta Target Encoding</td>
+                <td>解決虛擬變數共線性、引入貝氏後驗均值與方差特徵</td>
+              </tr>
+              <tr>
+                <td>**4. 模型建構**</td>
+                <td>套用演算法並擬合參數</td>
+                <td>自研矩陣解析解多元線性迴歸模型</td>
+                <td>極速收斂的解析解迴歸參數矩陣</td>
+              </tr>
+              <tr>
+                <td>**5. 模型評估**</td>
+                <td>驗證性能與診斷迴歸基本假設</td>
+                <td>計算 MAE/RMSE/R2/Adj-R2，進行 VIF/Q-Q/常態性殘差檢定</td>
+                <td>驗證 BTE 與 OHE 的泛化表現與統計學穩健性</td>
+              </tr>
+              <tr>
+                <td>**6. 模型部署**</td>
+                <td>模型上線，提供最終使用者決策</td>
+                <td>建構 FastAPI + Vanilla JS 前端與後端分離網頁</td>
+                <td>使用者端即時利潤預估便利貼、貝氏平滑滑桿模擬</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+
+    <!-- Navigation Footer -->
+    <footer class="nav-footer">
+      <button id="prev-btn" class="sketch-btn">
+        <svg class="sketch-icon" viewBox="0 0 24 24" style="margin-right: 0.35em; margin-left: 0;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>上一張 Slide
+      </button>
+      <div id="page-dots" class="handwritten" style="font-size: 1.15rem; font-weight: bold;">
+        第 1 / 7 頁
+      </div>
+      <button id="next-btn" class="sketch-btn">
+        下一張 Slide<svg class="sketch-icon" viewBox="0 0 24 24" style="margin-left: 0.35em; margin-right: 0;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,431 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Inter:wght@400;500;700&display=swap');
+
+:root {
+  --bg-color: #fcfcfd;
+  --grid-color: rgba(0, 0, 0, 0.05);
+  --border-color: #121214;
+  --text-color: #121214;
+  --primary-color: #2563eb;
+  --card-bg: #ffffff;
+  --sticky-yellow: #fef08a;
+  --sticky-blue: #bfdbfe;
+  --sticky-green: #bbf7d0;
+  --handwritten-font: 'Architects Daughter', cursive;
+  --sans-font: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  background-image: radial-gradient(var(--grid-color) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  color: var(--text-color);
+  font-family: var(--sans-font);
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, .handwritten {
+  font-family: var(--handwritten-font);
+  letter-spacing: 0.5px;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header styling */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2.5rem;
+  border-bottom: 2px dashed var(--border-color);
+  background-color: #ffffff;
+}
+
+.logo-section h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.logo-section span {
+  font-size: 0.85rem;
+  font-family: var(--sans-font);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.7;
+}
+
+.controls-section {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+button.sketch-btn {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 2px solid var(--border-color);
+  padding: 0.5rem 1.2rem;
+  font-family: var(--sans-font);
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+button.sketch-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px var(--border-color);
+  background-color: #f8fafc;
+}
+
+button.sketch-btn:active {
+  transform: translate(0, 0);
+  box-shadow: none;
+}
+
+button.sketch-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+button.sketch-btn.active:hover {
+  background-color: #1d4ed8;
+}
+
+/* Vector Sketch Icon Styles */
+.sketch-icon {
+  display: inline-block;
+  width: 1.25em;
+  height: 1.25em;
+  stroke-width: 2px;
+  stroke: currentColor;
+  fill: none;
+  vertical-align: middle;
+  margin-right: 0.35em;
+}
+
+/* Sidebar and Main Layout */
+.workspace {
+  display: flex;
+  flex: 1;
+  position: relative;
+}
+
+.sidebar {
+  width: 280px;
+  border-right: 2px dashed var(--border-color);
+  padding: 1.5rem;
+  background-color: #ffffff;
+  flex-shrink: 0;
+}
+
+.sidebar-title {
+  margin-bottom: 1.2rem;
+  font-size: 1.25rem;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.filter-group {
+  margin-bottom: 1.5rem;
+}
+
+.filter-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.checkbox-label input {
+  accent-color: var(--primary-color);
+}
+
+.main-board {
+  flex: 1;
+  padding: 2rem;
+  position: relative;
+}
+
+/* Slides System */
+.slides-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.slide-card {
+  background-color: var(--card-bg);
+  border: 2px solid var(--border-color);
+  padding: 2rem;
+  position: relative;
+  border-radius: 8px 12px 10px 14px/12px 14px 10px 12px;
+  box-shadow: 6px 6px 0px var(--border-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.slide-card::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 20px;
+  width: 40px;
+  height: 12px;
+  background-color: rgba(120, 120, 120, 0.25);
+  transform: rotate(-3deg);
+  border-radius: 2px;
+}
+
+.slide-card.in-view {
+  transform: translateY(-4px);
+  box-shadow: 10px 10px 0px var(--border-color);
+}
+
+.slide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.slide-number {
+  font-size: 0.9rem;
+  font-weight: bold;
+  background-color: var(--border-color);
+  color: #ffffff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.slide-title {
+  font-size: 1.75rem;
+}
+
+.slide-body {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* Post-it Notes / Sketchy boxes */
+.postit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.postit {
+  padding: 1.5rem;
+  border: 2px solid var(--border-color);
+  border-radius: 2px;
+  transform: rotate(-1.5deg);
+  box-shadow: 4px 4px 0px var(--border-color);
+  transition: transform 0.2s ease;
+}
+
+.postit:nth-child(even) {
+  transform: rotate(1deg);
+}
+
+.postit:nth-child(3n) {
+  transform: rotate(-0.5deg);
+}
+
+.postit:hover {
+  transform: scale(1.03) rotate(0deg);
+}
+
+.postit.yellow {
+  background-color: var(--sticky-yellow);
+  color: #1e1e1e;
+}
+
+.postit.blue {
+  background-color: var(--sticky-blue);
+  color: #1e1e1e;
+}
+
+.postit.green {
+  background-color: var(--sticky-green);
+  color: #1e1e1e;
+}
+
+.postit-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px dashed rgba(0,0,0,0.15);
+  padding-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Equations and Code blocks */
+.math-block {
+  background-color: rgba(120, 120, 120, 0.08);
+  border-left: 4px solid var(--primary-color);
+  padding: 1.2rem;
+  margin: 1.2rem 0;
+  font-family: var(--handwritten-font);
+  font-size: 1.15rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.code-block {
+  background-color: #1e1e24;
+  color: #f8fafc;
+  padding: 1rem;
+  border-radius: 6px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+  border: 2px solid var(--border-color);
+}
+
+/* Comparison columns */
+.compare-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.compare-card {
+  border: 2px solid var(--border-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.compare-card h4 {
+  display: flex;
+  align-items: center;
+}
+
+/* Table View Styling */
+.table-view-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: var(--card-bg);
+  border: 2px solid var(--border-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 6px 6px 0px var(--border-color);
+}
+
+table.sketch-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+table.sketch-table th, table.sketch-table td {
+  border: 2px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+table.sketch-table th {
+  background-color: rgba(120, 120, 120, 0.1);
+  font-family: var(--handwritten-font);
+  font-size: 1.1rem;
+}
+
+table.sketch-table tbody tr:hover {
+  background-color: rgba(120, 120, 120, 0.05);
+}
+
+/* Navigation footer */
+.nav-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 2.5rem;
+  border-top: 2px dashed var(--border-color);
+  background-color: #ffffff;
+  align-items: center;
+}
+
+/* Print CSS */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt !important;
+  }
+  
+  header, .sidebar, .nav-footer, button, .controls-section {
+    display: none !important;
+  }
+  
+  .workspace {
+    display: block !important;
+  }
+  
+  .main-board {
+    padding: 0 !important;
+  }
+  
+  .slides-wrapper {
+    display: block !important;
+    max-width: 100% !important;
+  }
+  
+  .slide-card {
+    page-break-after: always !important;
+    break-after: page !important;
+    margin-bottom: 2rem !important;
+    border: 2px solid black !important;
+    box-shadow: none !important;
+    transform: none !important;
+    background: white !important;
+    padding: 1.5cm !important;
+  }
+  
+  .postit {
+    background: white !important;
+    border: 1.5px solid black !important;
+    box-shadow: none !important;
+    transform: none !important;
+    color: black !important;
+  }
+  
+  .compare-card {
+    border: 1.5px solid black !important;
+    background: white !important;
+  }
+  
+  @page {
+    size: A4 portrait;
+    margin: 15mm 15mm 15mm 15mm;
+  }
+}

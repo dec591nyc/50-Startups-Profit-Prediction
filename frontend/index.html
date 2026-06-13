@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新創獲利預測與特徵分析平台 - 50 Startups</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Load Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <!-- Load Marked.js for Markdown parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- Header Section -->
+    <header>
+      <div class="header-left">
+        <h1 class="handwritten-title">新創獲利預測與特徵分析平台</h1>
+        <div class="subtitle">50 Startups Profit Prediction & Feature Analysis Platform</div>
+      </div>
+
+      <!-- Nav Tabs -->
+      <nav class="nav-tabs">
+        <button class="tab-btn active" data-tab="simulator-tab"
+          onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+          <svg class="sketch-icon" viewBox="0 0 24 24">
+            <path d="M3 3v18h18M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" />
+          </svg>
+          互動模擬分析器
+        </button>
+        <button class="tab-btn" data-tab="infographic-tab">
+          <svg class="sketch-icon" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <polyline points="21 15 16 10 5 21" />
+          </svg>
+          資訊圖表海報
+        </button>
+        <button class="tab-btn" data-tab="ppt-tab">
+          <svg class="sketch-icon" viewBox="0 0 24 24">
+            <path d="M2 3h20v14H2zm8 14v4M6 21h12" />
+          </svg>
+          線上簡報模式 (PPT)
+        </button>
+        <button class="tab-btn" data-tab="whitepaper-tab">
+          <svg class="sketch-icon" viewBox="0 0 24 24">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z" />
+          </svg>
+          技術白皮書閱讀器
+        </button>
+        <button id="play-video-tour-btn" class="sketch-btn success-btn" title="播放 2 分鐘簡導動畫影片"
+          style="background-color: var(--highlight-green); margin-left: 0.5rem;">
+          🎬 播放簡導語音影片
+        </button>
+      </nav>
+
+      <div class="header-right">
+        <!-- Print Button -->
+        <button id="print-workspace-btn" class="sketch-btn header-btn" title="列印或儲存技術白皮書為 PDF">
+          <svg class="sketch-icon" viewBox="0 0 24 24">
+            <path
+              d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z" />
+          </svg>
+          列印白皮書 (PDF)
+        </button>
+
+        <!-- GitHub Logo Button -->
+        <a href="https://github.com/dec591nyc/50-Startups-Profit-Prediction" target="_blank" class="github-btn"
+          title="瀏覽 GitHub 儲存庫">
+          <svg class="github-icon" viewBox="0 0 16 16" width="20" height="20">
+            <path fill="currentColor"
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+          </svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Workspace Area -->
+    <main class="workspace-area">
+
+      <!-- ==================== TAB 1: MODEL SIMULATOR ==================== -->
+      <section id="simulator-tab" class="tab-content active">
+        <div class="simulator-layout">
+
+          <!-- Left Panel: Input & Controls -->
+          <div class="sim-panel sim-controls">
+            <h3 class="panel-title handwritten">
+              <svg class="sketch-icon" viewBox="0 0 24 24">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+              </svg>
+              統計模型控制項
+            </h3>
+
+            <div class="control-box">
+              <div class="control-row">
+                <label for="encoding-select" class="control-label">類別特徵編碼方式：</label>
+                <select id="encoding-select" class="sketch-input">
+                  <option value="bte" selected>貝氏目標編碼 (Beta Target Encoding)</option>
+                  <option value="ohe">單熱編碼 (One-Hot Encoding)</option>
+                </select>
+              </div>
+
+              <div class="control-row" id="smoothing-row">
+                <div class="label-with-value">
+                  <label for="smoothing-slider" class="control-label">BTE 先驗平滑係數 (m)：</label>
+                  <span id="smoothing-val" class="handwritten-val">2.0</span>
+                </div>
+                <input type="range" id="smoothing-slider" min="0.1" max="20" step="0.1" value="2.0"
+                  class="sketch-slider">
+                <span class="slider-helper">m 越大，後驗均值越往全域平均拉動（正規化程度越高）</span>
+              </div>
+
+              <div class="control-row">
+                <div class="label-with-value">
+                  <label for="train-ratio-slider" class="control-label">訓練集比例：</label>
+                  <span id="train-ratio-val" class="handwritten-val">80%</span>
+                </div>
+                <input type="range" id="train-ratio-slider" min="0.5" max="0.95" step="0.05" value="0.80"
+                  class="sketch-slider">
+              </div>
+
+              <button id="refit-btn" class="sketch-btn primary-btn w-100">
+                <svg class="sketch-icon" viewBox="0 0 24 24">
+                  <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l.73-1.19" />
+                </svg>
+                重新擬合模型 (Refit)
+              </button>
+            </div>
+
+            <!-- Interactive Profit Predictor Section -->
+            <h3 class="panel-title handwritten" style="margin-top: 1.8rem;">
+              <svg class="sketch-icon" viewBox="0 0 24 24">
+                <path d="M9.62 6L4.5 12l5.12 6M14.38 18l5.12-6-5.12-6" />
+              </svg>
+              營運決策預測模擬
+            </h3>
+
+            <div class="control-box">
+              <div class="control-row">
+                <div class="label-with-value">
+                  <label for="rd-input" class="control-label">研發支出 (R&D Spend)：</label>
+                  <span id="rd-val" class="handwritten-val">$100,000</span>
+                </div>
+                <input type="range" id="rd-slider" min="0" max="200000" step="1000" value="100000"
+                  class="sketch-slider">
+                <input type="number" id="rd-input" min="0" max="200000" value="100000" class="sketch-input num-input">
+              </div>
+
+              <div class="control-row">
+                <div class="label-with-value">
+                  <label for="admin-input" class="control-label">行政管理支出 (Administration)：</label>
+                  <span id="admin-val" class="handwritten-val">$120,000</span>
+                </div>
+                <input type="range" id="admin-slider" min="0" max="200000" step="1000" value="120000"
+                  class="sketch-slider">
+                <input type="number" id="admin-input" min="0" max="200000" value="120000"
+                  class="sketch-input num-input">
+              </div>
+
+              <div class="control-row">
+                <div class="label-with-value">
+                  <label for="marketing-input" class="control-label">市場行銷支出 (Marketing Spend)：</label>
+                  <span id="marketing-val" class="handwritten-val">$200,000</span>
+                </div>
+                <input type="range" id="marketing-slider" min="0" max="450000" step="5000" value="200000"
+                  class="sketch-slider">
+                <input type="number" id="marketing-input" min="0" max="450000" value="200000"
+                  class="sketch-input num-input">
+              </div>
+
+              <div class="control-row">
+                <label for="state-select" class="control-label">新創公司設立州別 (State)：</label>
+                <select id="state-select" class="sketch-input">
+                  <option value="California">California (加州)</option>
+                  <option value="Florida">Florida (佛羅里達州)</option>
+                  <option value="New York" selected>New York (紐約州)</option>
+                </select>
+              </div>
+
+              <button id="predict-btn" class="sketch-btn success-btn w-100">
+                <svg class="sketch-icon" viewBox="0 0 24 24">
+                  <path d="m9 11 3 3L22 4M21 12a9 9 0 1 1-9-9" />
+                </svg>
+                估算利潤預期
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Panel: Results & Diagnostics -->
+          <div class="sim-panel sim-dashboard">
+
+            <!-- Target Variable sticky note -->
+            <div class="sticky-container">
+              <div class="sticky-note yellow-note">
+                <h4 class="handwritten text-center note-heading">利潤估估便利貼</h4>
+                <div class="prediction-display text-center">
+                  <div class="pred-label">預期營運利潤 (Point Estimate)</div>
+                  <div id="pred-result-value" class="pred-value handwritten">$131,200.45</div>
+
+                  <div class="ci-box">
+                    <div class="ci-label">95% 統計信賴區間</div>
+                    <div id="pred-ci-value" class="ci-value handwritten">[$113,842.10, $148,558.80]</div>
+                  </div>
+                </div>
+                <div class="note-footer handwritten">
+                  * 95% 信賴區間以殘差標準誤差估算，說明有 95% 把握實際利潤落在此區間內。
+                </div>
+              </div>
+
+              <!-- Performance sticky note -->
+              <div class="sticky-note green-note">
+                <h4 class="handwritten text-center note-heading">當前模型擬合指標</h4>
+                <div class="metrics-grid">
+                  <div class="metric-item">
+                    <span class="m-label">R² (判定係數)</span>
+                    <span id="m-r2" class="m-value handwritten">0.9509</span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="m-label">Adj. R² (自由度校正)</span>
+                    <span id="m-adj-r2" class="m-value handwritten">0.9482</span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="m-label">MAE (平均絕對誤差)</span>
+                    <span id="m-mae" class="m-value handwritten">$6,552.12</span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="m-label">RMSE (均方根誤差)</span>
+                    <span id="m-rmse" class="m-value handwritten">$8,710.22</span>
+                  </div>
+                </div>
+                <div class="metrics-comparison-bar" id="metrics-comp-text">
+                  BTE 較 OHE 減少了 $190.18 的 MAE 誤差!
+                </div>
+              </div>
+            </div>
+
+            <!-- Mathematical Equation display -->
+            <div class="equation-box">
+              <h4 class="handwritten">擬合迴歸方程式：</h4>
+              <div id="regression-equation" class="equation-text">
+                Profit = 50122.19 + 0.8057 * (R&D Spend) - 0.0268 * (Administration) + 0.0272 * (Marketing Spend) +
+                2186.23 * (State_BTE_mean)
+              </div>
+            </div>
+
+            <!-- Diagnostic Plots -->
+            <div class="plots-grid">
+              <div class="plot-card">
+                <h4 class="handwritten text-center">研發支出 vs 利潤 & 迴歸擬合線</h4>
+                <div class="canvas-wrapper">
+                  <canvas id="rd-profit-plot" width="360" height="240"></canvas>
+                </div>
+              </div>
+              <div class="plot-card">
+                <h4 class="handwritten text-center">實際利潤 vs 預估利潤 散佈圖</h4>
+                <div class="canvas-wrapper">
+                  <canvas id="pred-actual-plot" width="360" height="240"></canvas>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- OLS Coefficients Inference summary -->
+        <div class="ols-summary-section">
+          <h3 class="section-title handwritten">
+            <svg class="sketch-icon" viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+            </svg>
+            OLS 多元線性迴歸統計學分析摘要 (White-Box Inference)
+          </h3>
+          <p class="section-subtitle">
+            以下表格展示模型參數。<strong>請滑鼠懸停或點擊參數旁的 💡 按鈕</strong>，以閱讀該指標的物理意義與商業決策意涵。
+          </p>
+
+          <div class="ols-table-wrapper">
+            <table class="ols-table">
+              <thead>
+                <tr>
+                  <th>自變數 (Feature)</th>
+                  <th>估計係數 (Coefficient)</th>
+                  <th>標準誤差 (Std Error)</th>
+                  <th>t 統計量 (t-Statistic)</th>
+                  <th>p 值 (p-Value)</th>
+                  <th>商業決策意涵</th>
+                </tr>
+              </thead>
+              <tbody id="ols-table-body">
+                <!-- Will be dynamically populated by app.js -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Tooltip Detail Display Container (mobile friendly fallback) -->
+          <div id="ols-detail-display" class="ols-detail-card hidden">
+            <div class="ols-detail-header">
+              <span id="ols-detail-title" class="handwritten">特徵說明</span>
+              <button id="close-ols-detail" class="close-btn">&times;</button>
+            </div>
+            <div id="ols-detail-content">請懸停或點擊表格中的指標查看詳細分析。</div>
+          </div>
+        </div>
+
+        <!-- Cardinality Critique & BTE redundancy discussion -->
+        <div class="academic-critique-section">
+          <div class="critique-header">
+            <h3 class="handwritten critique-title">
+              <svg class="sketch-icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              學術思辨：單熱編碼 (OHE) 與 貝氏目標編碼 (BTE) 的冗餘度論證
+            </h3>
+          </div>
+          <div class="critique-body">
+            <p>
+              在許多機器學習項目中，開發者常有<strong>「越複雜的演算法越好」</strong>的盲點。在此專案中，我們同時納入了「單熱編碼 (One-Hot Encoding)」與「貝氏目標編碼 (Beta
+              Target Encoding)」。
+            </p>
+            <div class="critique-columns">
+              <div class="critique-col card-style">
+                <h4 class="handwritten">🔍 本數據集上的設計冗餘 (Redundancy)</h4>
+                <p>
+                  本數據集中的類別型特徵為「州別 (State)」，僅有 3 個類別：加州 (California)、佛州 (Florida)、紐約州 (New York)。
+                </p>
+                <p>
+                  對於基數為 3 ($K=3$) 的變數，使用單熱編碼只需生成 2
+                  個虛擬變數（丟棄加州作基準），即可完美且無損地表徵地理區位。在此情境下，使用複雜的貝氏目標編碼（正規化、先驗參數、後驗更新、提取均值與方差）在數學上是<strong>完全冗餘且過度設計的（Overkill）</strong>。
+                </p>
+              </div>
+              <div class="critique-col card-style">
+                <h4 class="handwritten">💡 概念驗證與工業級價值 (PoC Value)</h4>
+                <p>
+                  既然如此，為什麼還要設計與保留 BTE 呢？
+                </p>
+                <p>
+                  我們將其定位為一個 **概念驗證 (Proof of Concept, PoC)**。在實際工業級應用中，我們經常遇到「高基數特徵」(High Cardinality)，例如：郵遞區號
+                  (500+類別)、商品類別 (1,000+類別)。若用單熱編碼，會造成特徵空間急劇膨脹，特徵矩陣極度稀疏，進而引發 OLS 迴歸<strong>維度災難與嚴重過度擬合</strong>。
+                </p>
+                <p>
+                  此時，BTE 可以優雅地將高基數欄位壓縮成均值與方差 **2個實數欄位**，並通過平滑係數 $m$ 調節防噪與抗漏失能力。本專案向您完整展示了這套貝氏特徵工程的實作流程。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ==================== TAB 4: INFOGRAPHIC POSTER ==================== -->
+      <section id="infographic-tab" class="tab-content">
+        <div class="infographic-workspace-wrapper"
+          style="width: 100%; height: calc(100vh - 180px); min-height: 800px; border: 2px solid var(--border-color); border-radius: 8px; box-shadow: 4px 4px 0px var(--border-color); background: #ffffff; overflow: hidden; position: relative;">
+          <iframe src="infographic/index.html"
+            style="width: 100%; height: 100%; border: none; display: block;"></iframe>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 2: ONLINE PRESENTATION (PPT) ==================== -->
+      <section id="ppt-tab" class="tab-content">
+        <div class="presentation-workspace">
+
+          <!-- Slide Container -->
+          <div class="slide-deck-container">
+            <div class="slide-deck" id="slide-deck">
+              <!-- Dynamically populated by JS or static slides -->
+
+              <!-- Slide 1: Cover -->
+              <div class="presentation-slide active" data-slide="1">
+                <div class="slide-inner">
+                  <div class="slide-header">
+                    <span class="slide-tag handwritten">CRISP-DM 項目匯報</span>
+                    <span class="slide-number">01 / 08</span>
+                  </div>
+                  <div class="slide-body text-center flex-center">
+                    <h1 class="slide-title handwritten">50 Startups 利潤預測與分析簡報</h1>
+                    <h3 class="slide-subtitle handwritten">基於 CRISP-DM 框架與貝氏目標編碼的迴歸實作</h3>
+                    <div class="slide-meta">
+                      主講人：017 產業量化分析研究團隊<br>
+                      時間：2026 年 6 月
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 2: Business Understanding -->
+              <div class="presentation-slide" data-slide="2">
+                <div class="slide-inner">
+                  <div class="slide-header">
+                    <span class="slide-tag handwritten">Phase 1: 商業理解</span>
+                    <span class="slide-number">02 / 08</span>
+                  </div>
+                  <div class="slide-body">
+                    <h2 class="slide-section-title handwritten">早期風險投資的決策痛點</h2>
+                    <div class="slide-columns-2">
+                      <div class="slide-col">
+                        <h4 class="handwritten">📌 投資難題</h4>
+                        <ul>
+                          <li>新創公司財務歷史數據稀疏，傳統估值方法失效。</li>
+                          <li>難以量化不同運營支出項目（研發、行政、行銷）對淨利潤的邊際貢獻。</li>
+                          <li>設立州別（地理位置）是否有潛在的稅收與政策效應？</li>
+                        </ul>
+                      </div>
+                      <div class="slide-col sticky-note yellow-note">
+                        <h4 class="handwritten">🎯 專案任務</h4>
+                        <p>透過建立「白盒化」線性迴歸模型，量化預算邊際回報率，並給出帶有信賴區間的利潤估計，輔助 VC 科學化決策。</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 3: Data Understanding -->
+              <div class="presentation-slide" data-slide="3">
+                <div class="slide-inner">
+                  <div class="slide-header">
+                    <span class="slide-tag handwritten">Phase 2: 數據理解</span>
+                    <span class="slide-number">03 / 08</span>
+                  </div>
+                  <div class="slide-body">
+                    <h2 class="slide-section-title handwritten">數據探索與相關性矩陣</h2>
+                    <div class="slide-columns-2">
+                      <div class="slide-col">
+                        <p>50 Startups 包含三個運營支出特徵與一個州別類別。經 Pearson 相關係數分析：</p>
+                        <table class="slide-table">
+                          <thead>
+                            <tr>
+                              <th>自變數</th>
+                              <th>與利潤 (Profit) 的相關係數</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="highlight-row">
+                              <td>研發支出 (R&D Spend)</td>
+                              <td><strong>0.9729 (極強相關)</strong></td>
+                            </tr>
+                            <tr>
+                              <td>市場行銷 (Marketing)</td>
+                              <td>0.7478 (中度相關)</td>
+                            </tr>
+                            <tr>
+                              <td>行政管理 (Admin)</td>
+                              <td>0.2007 (極弱相關)</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slide-col">
+                        <div class="sticky-note blue-note text-dark">
+                          <h4 class="handwritten">💡 商業發現：</h4>
+                          <p>研發支出幾乎是淨利潤的直接推手！而行政開銷則表現得像一個固定常數，對利潤的邊際變化影響甚微。</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 4: Data Preparation -->
+              <div class="presentation-slide" data-slide="4">
+                <div class="slide-inner">
+                  <div class="slide-header">
+                    <span class="slide-tag handwritten">Phase 3: 數據準備與編碼</span>
+                    <span class="slide-number">04 / 08</span>
+                  </div>
+                  <div class="slide-body">
+                    <h2 class="slide-section-title handwritten">類別型變數編碼與完全共線性</h2>
+                    <div class="slide-columns-2">
+                      <div class="slide-col">
+                        <h4 class="handwritten">1. One-Hot Encoding & 虛擬變數陷阱</h4>
+                        <p>對於 State (CA, FL, NY) 進行單熱編碼，若將所有州與常數項一同放入模型，會導致 $\mathbf{v}_{CA} + \mathbf{v}_{FL} +
+                          \mathbf{v}_{NY} = \mathbf{1}$。</p>
+                        <p>列向量完全線性相關，使得矩陣 $X^T X$ 無法求逆（即其逆矩陣 $(X^T X)^{-1}$ 不存在）！</p>
+                        <p><strong>解決方案</strong>：丟棄首個州別 (California) 作為基準類別。</p>
+                      </div>
+                      <div class="slide-col sticky-note green-note">
+                        <h4 class="handwritten">⚠️ 貝氏編碼冗餘警告：</h4>
+                        <p><strong>在此數據集上 ($K=3$) 實作貝氏目標編碼是「冗餘的」</strong>。單熱編碼完全足夠。</p>
+                        <p>本專案保留此設計是用作 **概念驗證 (PoC)**，展示其在處理工業級 **「高基數特徵」** 時的壓縮與防過度擬合能力。</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 5: Beta Target Encoding -->
+              <div class="presentation-slide" data-slide="5">
+                <div class="slide-inner">
+                  <div class="slide-header">
+                    <span class="slide-tag handwritten">Phase 3: Beta 目標編碼數學</span>
+                    <span class="slide-number">05 / 08</span>
+                  </div>
+                  <div class="slide-body">
+                    <h2 class="slide-section-title handwritten">迴歸任務下的 Beta Target Encoding</h2>
+                    <p>我們將分類任務的 Beta 目標編碼推廣到連續迴歸中，步驟如下：</p>
+                    <div class="bte-math-steps">
+                      <div class="math-step card-style">
+                        <span class="step-num">1</span>
+                        <div class="step-desc">
+                          <strong>目標值歸一化</strong>：<br>
+                          將 Profit $y$ 歸一化到 $[0, 1]$ 區間，使其符合 Beta 先驗。
+                        </div>
+                      </div>
+                      <div class="math-step card-style">
+                        <span class="step-num">2</span>
+                        <div class="step-desc">
+                          <strong>先驗與後驗更新</strong>：<br>
+                          計算全域均值 $p$，以平滑係數 $m$ 決定先驗。結合觀測更新後驗期望：<br>
+                          <div class="formula">E[y_{norm} | c] = (S_c + m·p) / (n_c + m)</div>
+                        </div>
+                      </div>
+                      <div class="math-step card-style">
+                        <span class="step-num">3</span>
+                        <div class="step-desc">
+                          <strong>後驗均值與方差雙特徵</strong>：<br>
+                          同時提取代表不確定性的方差：<br>
+                          <div class="formula">Var(y_{norm} | c) = (\alpha·\beta) / [(\alpha+\beta)^2(\alpha+\beta+1)]
+                          </div>
+                          並逆變換回美元尺度。
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 6: Modeling -->
+              <div class="presentation-slide" data-slide="6">
+                <div class="slide-inner">
+                  <div class="slide-header">
+                    <span class="slide-tag handwritten">Phase 4: 模型建構 (Modeling)</span>
+                    <span class="slide-number">06 / 08</span>
+                  </div>
+                  <div class="slide-body">
+                    <h2 class="slide-section-title handwritten">最小平方法 (OLS) 解析求解與推論</h2>
+                    <div class="slide-columns-2">
+                      <div class="slide-col">
+                        <h4 class="handwritten">📐 OLS 矩陣偏微分證明</h4>
+                        <p>為最小化殘差平方和 $S(\boldsymbol{\beta}) = (\mathbf{y} - X\boldsymbol{\beta})^T (\mathbf{y} -
+                          X\boldsymbol{\beta})$，對其求一階導數並令其為零：</p>
+                        <div class="formula-block">-2 X^T \mathbf{y} + 2 X^T X \hat{\boldsymbol{\beta}} = \mathbf{0}
+                        </div>
+                        <p>在 $X^T X$ 可逆的假設下，得到唯一解析解：</p>
+                        <div class="formula-block">\hat{\boldsymbol{\beta}} = (X^T X)^{-1} X^T \mathbf{y}</div>
+                      </div>
+                      <div class="slide-col">
+                        <h4 class="handwritten">📊 白盒推論 (Inference)</h4>
+                        <ul>
+                          <li>計算殘差無偏方差 $s^2 = \mathbf{e}^T\mathbf{e} / (n - k - 1)$。</li>
+                          <li>係數共變異數矩陣 $Var(\hat{\boldsymbol{\beta}}) = s^2 (X^T X)^{-1}$，其對角線平方根為標準誤差 $SE$。</li>
+                          <li>計算 $t = \hat{\beta} / SE(\hat{\beta})$ 以評估 $p$ 值，確定統計顯著性。</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 7: Evaluation -->
+              <div class="presentation-slide" data-slide="7">
+                <div class="slide-inner">
+                  <div class="slide-header">
+                    <span class="slide-tag handwritten">Phase 5: 模型評估與診斷</span>
+                    <span class="slide-number">07 / 08</span>
+                  </div>
+                  <div class="slide-body">
+                    <h2 class="slide-section-title handwritten">統計假設診斷與實驗結果對照</h2>
+                    <div class="slide-columns-2">
+                      <div class="slide-col">
+                        <h4 class="handwritten">🔍 高斯-馬可夫五大假定診斷</h4>
+                        <ul>
+                          <li><strong>無共線性</strong>：計算 VIF 均小於 5，無多重共線性。</li>
+                          <li><strong>常態性</strong>：繪製 Q-Q 圖，殘差緊密排布在對角線上。</li>
+                          <li><strong>同變異</strong>：殘差-擬合值散佈圖呈隨機帶狀，支持同變異假設。</li>
+                        </ul>
+                      </div>
+                      <div class="slide-col">
+                        <h4 class="handwritten">📈 80/20 分配測試集對照表現</h4>
+                        <table class="slide-table font-sm">
+                          <thead>
+                            <tr>
+                              <th>特徵編碼</th>
+                              <th>測試集 R²</th>
+                              <th>MAE (USD)</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>OHE (加州基準)</td>
+                              <td>0.9475</td>
+                              <td>$6,742.30</td>
+                            </tr>
+                            <tr class="highlight-row">
+                              <td>BTE (平滑 m=2.0)</td>
+                              <td><strong>0.9482</strong></td>
+                              <td><strong>$6,552.12</strong></td>
+                            </tr>
+                            <tr>
+                              <td>BTE (平滑 m=10.0)</td>
+                              <td>0.9410</td>
+                              <td>$7,220.10</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p class="font-sm" style="margin-top:0.5rem; opacity:0.8;">註：合適的先驗平滑（m=2.0）能有效濾除噪聲，降低預測 MAE。</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 8: Deployment -->
+              <div class="presentation-slide" data-slide="8">
+                <div class="slide-inner">
+                  <div class="slide-header">
+                    <span class="slide-tag handwritten">Phase 6: 模型部署 (Deployment)</span>
+                    <span class="slide-number">08 / 08</span>
+                  </div>
+                  <div class="slide-body">
+                    <h2 class="slide-section-title handwritten">前後端分離架構與信賴區間決策</h2>
+                    <div class="slide-columns-2">
+                      <div class="slide-col">
+                        <h4 class="handwritten">💻 前後端分離 API 機制</h4>
+                        <ul>
+                          <li><strong>後端 (FastAPI)</strong>：高效暴露擬合與預估 API，無 Streamlit 工具列雜音，100% 獨立。</li>
+                          <li><strong>前端 (Vanilla JS SPA)</strong>：非同步 fetch 提交特徵，即時重繪手繪圖表，提升響應速度。</li>
+                        </ul>
+                      </div>
+                      <div class="slide-col sticky-note yellow-note">
+                        <h4 class="handwritten">📊 統計預測區間 (Prediction Interval)</h4>
+                        <p>在 95% 信賴水準下，我們計算了預估值的波動範疇，使預估結果不只是一個點，而是一塊「安全決策帶」，防止過度承擔風險。</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Slide Controls -->
+          <div class="ppt-controls-bar">
+            <button id="prev-slide-btn" class="sketch-btn font-lg">&larr; 上一頁</button>
+            <div id="slide-indicators" class="slide-indicators-dots">
+              <!-- Dots added by JS -->
+            </div>
+            <button id="next-slide-btn" class="sketch-btn font-lg">下一頁 &rarr;</button>
+            <button id="fullscreen-ppt-btn" class="sketch-btn header-btn">
+              <svg class="sketch-icon" viewBox="0 0 24 24">
+                <path
+                  d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+              </svg>
+              全螢幕播放
+            </button>
+          </div>
+
+          <!-- NotebookLM integration guides -->
+          <div class="nblm-resources-panel card-style">
+            <h3 class="handwritten">📓 Google NotebookLM (NBLM) 與簡報資源</h3>
+            <p>
+              本簡報可以直接在網頁上播放，如果需要將簡報與白皮書上傳到 Google NotebookLM 生成語音導覽、音訊 Podcast 或是引導式問答，可以利用以下資源：
+            </p>
+            <div class="nblm-actions">
+              <a href="nblm/notebooklm_outline.md" target="_blank" class="sketch-btn">
+                <svg class="sketch-icon" viewBox="0 0 24 24">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+                查看 NotebookLM 結構化引導大綱 (.md)
+              </a>
+              <a href="nblm/nblm_presentation.md" target="_blank" class="sketch-btn">
+                <svg class="sketch-icon" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                </svg>
+                查看 Marp 簡報原始碼 (.md)
+              </a>
+              <a href="nblm/nblm_presentation.pptx" download class="sketch-btn success-btn">
+                <svg class="sketch-icon" viewBox="0 0 24 24">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+                </svg>
+                下載實體 PowerPoint 簡報 (.pptx)
+              </a>
+            </div>
+            <p class="nblm-tip">
+              <strong>💡 提示：</strong> 您可以下載 <code>nblm_presentation.pptx</code> 直接進行本地編輯，或將
+              <code>notebooklm_outline.md</code> 直接上傳到您的 NotebookLM 筆記本中，作為知識庫來源，NotebookLM 能基於該文件自動生成極具深度的音訊內容。
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==================== TAB 3: WHITEPAPER READER ==================== -->
+      <section id="whitepaper-tab" class="tab-content">
+        <div class="whitepaper-layout">
+
+          <!-- Left Table of Contents Sidebar -->
+          <div class="whitepaper-sidebar card-style">
+            <h3 class="handwritten border-bottom pb-2">
+              <svg class="sketch-icon" viewBox="0 0 24 24">
+                <path d="M4 6h16M4 12h16M4 18h7" />
+              </svg>
+              白皮書目錄導覽
+            </h3>
+            <ul class="toc-list" id="whitepaper-toc">
+              <!-- Dynamically populated from whitepaper headings -->
+            </ul>
+          </div>
+
+          <!-- Right Content Area styled like a file pad / clipboard -->
+          <div class="whitepaper-content-container">
+            <div class="clipboard-clamp"></div>
+            <div class="whitepaper-paper" id="whitepaper-content-area">
+              <div class="loading-spinner">
+                <p class="handwritten">正在加載技術白皮書中，請稍候...</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>50 Startups Profit Prediction & Academic Analytics Platform &copy; 2026. Built with FastAPI (Backend) &
+        HTML5/Vanilla JS (Frontend).</p>
+    </footer>
+  </div>
+
+  <!-- ==================== INTERACTIVE VIDEO TOUR PLAYER MODAL ==================== -->
+  <div id="video-tour-modal" class="video-tour-modal hidden"
+    style="position: fixed; inset: 0; background-color: rgba(30, 41, 59, 0.7); backdrop-filter: blur(4px); z-index: 1000; display: flex; justify-content: center; align-items: center;">
+    <div class="video-player-card"
+      style="width: 90%; max-width: 800px; background-color: #ffffff; border: 3px solid var(--border-color); border-radius: 12px; box-shadow: 6px 8px 0px var(--border-color); overflow: hidden; display: flex; flex-direction: column; position: relative;">
+
+      <!-- Player Header -->
+      <div class="player-header"
+        style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1.5rem; border-bottom: 2px solid var(--border-color); background-color: #f8fafc;">
+        <span class="handwritten" style="font-weight: bold; font-size: 1.1rem; color: var(--ink-color);">🎬 50 Startups
+          獲利預測簡導影片 (2分鐘)</span>
+        <button id="close-video-tour"
+          style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--ink-light); font-weight: bold;">&times;</button>
+      </div>
+
+      <!-- Player Canvas/Viewport -->
+      <div class="player-viewport"
+        style="aspect-ratio: 16/9; background-color: #faf9f5; position: relative; padding: 2rem; display: flex; flex-direction: column; justify-content: center; overflow: hidden; border-bottom: 2px solid var(--border-color);">
+        <!-- Background Grid -->
+        <div
+          style="position: absolute; inset: 0; background-image: radial-gradient(var(--grid-line-color) 1.5px, transparent 1.5px); background-size: 20px 20px; opacity: 0.6; pointer-events: none;">
+        </div>
+
+        <!-- Animated Elements -->
+        <div id="video-slide-container"
+          style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; justify-content: space-around; padding: 1rem;">
+          <!-- Slide Tag -->
+          <div id="video-slide-tag" class="handwritten"
+            style="font-size: 1rem; color: var(--primary-color); font-weight: bold; opacity: 0; transform: translateY(-20px); transition: all 0.5s ease;">
+            TAG</div>
+          <!-- Slide Title -->
+          <h2 id="video-slide-title" class="handwritten"
+            style="font-size: 2.2rem; font-weight: bold; color: var(--ink-color); opacity: 0; transform: scale(0.9); transition: all 0.5s ease;">
+            Slide Title</h2>
+          <!-- Slide Content -->
+          <div id="video-slide-content"
+            style="font-size: 1.1rem; color: var(--ink-light); width: 100%; opacity: 0; transform: translateY(20px); transition: all 0.5s ease;">
+            Slide Content</div>
+        </div>
+      </div>
+
+      <!-- Subtitles Area -->
+      <div class="player-subtitles"
+        style="height: 65px; background-color: #1e293b; color: #ffffff; display: flex; justify-content: center; align-items: center; padding: 0.5rem 1.5rem; text-align: center; font-size: 0.95rem; line-height: 1.4; border-bottom: 2px solid var(--border-color);">
+        <p id="player-subtitles-text">點擊下方播放鈕開始導覽影片之旅...</p>
+      </div>
+
+      <!-- Player Controls -->
+      <div class="player-controls"
+        style="display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1.5rem; background-color: #f8fafc;">
+        <button id="player-play-btn" class="sketch-btn success-btn"
+          style="padding: 0.4rem 1rem; font-size: 0.85rem;">Play</button>
+        <div
+          style="flex: 1; height: 8px; background-color: #cbd5e1; border: 1.5px solid var(--border-color); border-radius: 4px; overflow: hidden; position: relative; cursor: pointer;"
+          id="player-progress-bar">
+          <div id="player-progress-fill"
+            style="width: 0%; height: 100%; background-color: var(--primary-color); transition: width 0.1s linear;">
+          </div>
+        </div>
+        <span id="player-time-display"
+          style="font-family: monospace; font-size: 0.85rem; color: var(--ink-light);">00:00 / 01:55</span>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
