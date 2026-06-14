@@ -1,6 +1,6 @@
 # 50 Startups 獲利預測與貝氏特徵分析實務平台
 
-本專案為職前培訓實務作業，是一個結合統計機器學習與精美前端 SPA 面板的決策支持系統。專案採用 CRISP-DM（跨行業數據挖掘標準流程）框架，系統性整合「自定義 OLS 多元線性迴歸」與「貝氏目標編碼 (Beta Target Encoding)」，量化分析早期新創公司（50 Startups）各項營運支出與地區設立對淨利潤的影響。
+本專案為第六份職前培訓實務作業，是一個結合統計機器學習與精美前端 SPA 面板的決策支持系統。專案採用 CRISP-DM（跨行業數據挖掘標準流程）框架，系統性整合「自定義 OLS 多元線性迴歸」與「貝氏目標編碼 (Beta Target Encoding)」，量化分析早期新創公司（50 Startups）各項營運支出與地區設立對淨利潤的影響。
 
 作品採用前後端分離架構，後端以 `FastAPI` 驅動，前端以原生 `HTML5`、`Vanilla CSS` 與 `JavaScript` 構建手繪白板風（Excalidraw 質感）互動介面，整合模擬器、A4 實務海報、線上 PPT 簡報、白皮書閱讀器與 TTS 語音影片導覽。
 
@@ -32,7 +32,7 @@ flowchart TD
     subgraph Backend [FastAPI 統計計算服務]
         G[main.py 路由與控制] -->|特徵轉換| H[CustomOneHot / BetaTarget Encoders]
         G -->|OLS 求解 & 統計指標| I[CustomMultipleLinearRegression]
-        G -->|JSON API 響應| J[/api/train & /api/predict]
+        G -->|JSON API 響應| J["/api/train & /api/predict"]
     end
 
     B -->|非同步 Fetch 請求| G
@@ -92,14 +92,25 @@ python main.py
 
 本專案採用前後端分離，請按照以下步驟完成雲端部署。
 
-### 步驟 1：後端 FastAPI 部署 (以 Render 為例)
+### 步驟 1：後端 FastAPI 部署 (以 Railway / Render 為例)
+
+#### 方案 A：部署至 Railway (推薦)
+1. 註冊並登入 [Railway](https://railway.app/)。
+2. 點擊 **New Project** -> **Deploy from GitHub repo**，選擇本專案的 Repository。
+3. 部署完成後，點擊該服務卡片，進入 **Settings** 頁籤：
+   * **Root Directory**: 設定為 `backend` (讓 Railway 定位到後端資料夾)。
+   * **Custom Start Command** (選填)：預設 Nixpacks 會偵測並使用 `python main.py`，你也可以手動指定為 `uvicorn main:app --host 0.0.0.0 --port $PORT`。
+4. 進入 **Variables** 頁籤，不需特別設定，Railway 會自動注入 `PORT` 環境變數。
+5. 進入 **Settings** -> **Networking** -> 點擊 **Generate Domain** 以取得公網 API URL（例如：`https://web-production-xxxx.up.railway.app`）。
+
+#### 方案 B：部署至 Render
 1. 註冊並登入 [Render](https://render.com/)。
 2. 新增一個 **Web Service**，並連結您的 GitHub 專案。
 3. 設定部署屬性：
    * **Environment**: `Python`
-   * **Root Directory**: `backend` (若 Render 支援定位子目錄) 或直接指定根目錄
+   * **Root Directory**: `backend`
    * **Build Command**: `pip install -r requirements.txt`
-   * **Start Command**: `uvicorn main:app --host 0.0.0.0 --port 8000`
+   * **Start Command**: `uvicorn main:app --host 0.0.0.0 --port 8000` (或使用環境變數的 port)
 4. 部署完成後，取得後端雲端 API URL（例如：`https://fifty-startups-profit-prediction-api.onrender.com`）。
 
 ### 步驟 2：修改前端後端對接地址
