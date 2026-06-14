@@ -164,7 +164,7 @@ async function fitModel() {
   };
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/train`, {
+    const response = await fetch(`${BACKEND_URL}/api/train`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -193,7 +193,7 @@ async function fitModel() {
 
   } catch (error) {
     console.error('Error fitting model:', error);
-    alert('後端 API 通訊錯誤，請確認 FastAPI 服務是否在 http://127.0.0.1:8080 啟動中！');
+    alert(`後端 API 通訊錯誤，請確認 FastAPI 服務是否已啟動，且網址 ${BACKEND_URL} 可正常存取！`);
   } finally {
     refitBtn.disabled = false;
     refitBtn.textContent = '重新擬合模型 (Refit)';
@@ -215,7 +215,7 @@ async function predictProfit() {
   };
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/predict`, {
+    const response = await fetch(`${BACKEND_URL}/api/predict`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
