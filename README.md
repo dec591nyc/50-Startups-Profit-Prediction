@@ -122,7 +122,16 @@ python main.py
    ```
 3. 存檔並提交 git push。
 
-### 步驟 3：前端部署到 GitHub Pages
+### 步驟 3：前端部署 (以 Vercel / GitHub Pages 為例)
+
+#### 方案 A：部署至 Vercel (推薦，極度簡便且支援單頁應用)
+1. 註冊並登入 [Vercel](https://vercel.com/)。
+2. 點擊 **Add New** -> **Project**，選擇本專案的 GitHub Repository 並點擊 **Import**。
+3. 在 **Configure Project** 頁面中，點擊 **Root Directory** 的 **Edit**，選擇 **`frontend`**。
+4. 點擊 **Deploy** 開始部署。
+5. 部署完成後，Vercel 會自動為您生成一個公網網址（例如：`https://50-startups-profit-prediction.vercel.app`）。您可直接開啟此網址存取本專案！
+
+#### 方案 B：部署到 GitHub Pages
 1. 進入您 GitHub Repository 的 **Settings** -> **Pages**。
 2. 在 **Build and deployment** 下，Source 選擇 `Deploy from a branch`。
 3. Branch 選擇 `main`，資料夾選擇 `/root`。

@@ -19,7 +19,11 @@ app = FastAPI(title="50 Startups Profit Prediction API")
 # Enable CORS for the decoupled frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # In development, allow all origins
+    allow_origins=[
+        "https://50-startups-profit-prediction.vercel.app",
+        "http://localhost:3000",
+        "http://127.0.0.1:5500"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

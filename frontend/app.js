@@ -1,5 +1,5 @@
 // Constants
-const BACKEND_URL = 'http://127.0.0.1:8000';
+const BACKEND_URL = "https://50-startups-profit-prediction.up.railway.app";
 
 // Global State
 let currentSlide = 1;
@@ -213,9 +213,11 @@ async function predictProfit() {
   };
 
   try {
-    const response = await fetch(`${BACKEND_URL}/api/predict`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetch(`${API_BASE_URL}/api/predict`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(payload)
     });
 
@@ -687,6 +689,38 @@ function goToSlide(slideNum) {
 }
 
 // ------------------ WHITEPAPER DOCUMENT READER ------------------
+function renderMarkdownWhitepaper(markdownText) {
+  if (typeof marked !== 'undefined') {
+    // Customize marked header renderer to add anchors automatically
+    const renderer = new marked.Renderer();
+    const headingList = [];
+
+    renderer.heading = function (data) {
+      let text = typeof data === 'string' ? data : (data.text || '');
+      let level = typeof data === 'string' ? arguments[1] : (data.depth || 1);
+      // Create an ID clean of special symbols for scroll links
+      const cleanText = text.replace(/<[^>]*>/g, '').trim();
+      const id = 'section-' + cleanText.toLowerCase().replace(/[^\w\u4e00-\u9fa5]+/g, '-');
+
+      headingList.push({ text: cleanText, level: level, id: id });
+
+      return `<h${level} id="${id}">${text}</h${level}>`;
+    };
+
+    // Parse markdown to HTML
+    const htmlContent = marked.parse(markdownText, { renderer: renderer });
+    whitepaperContentArea.innerHTML = htmlContent;
+
+    // Populate Table of Contents in sidebar
+    populateToc(headingList);
+
+    // Setup scroll active highlighting
+    setupTocScrollSpy();
+  } else {
+    whitepaperContentArea.innerHTML = `<p style="color:red;">Marked.js 載入失敗，無法解析 Markdown 白皮書。</p>`;
+  }
+}
+
 async function initWhitepaper() {
   try {
     const response = await fetch(`${BACKEND_URL}/api/whitepaper`);
@@ -694,47 +728,23 @@ async function initWhitepaper() {
 
     const data = await response.json();
     const markdownText = data.content;
-
-    // Parse using marked.js
-    if (typeof marked !== 'undefined') {
-      // Customize marked header renderer to add anchors automatically
-      const renderer = new marked.Renderer();
-      const headingList = [];
-
-      renderer.heading = function (data) {
-        let text = typeof data === 'string' ? data : (data.text || '');
-        let level = typeof data === 'string' ? arguments[1] : (data.depth || 1);
-        // Create an ID clean of special symbols for scroll links
-        const cleanText = text.replace(/<[^>]*>/g, '').trim();
-        const id = 'section-' + cleanText.toLowerCase().replace(/[^\w\u4e00-\u9fa5]+/g, '-');
-
-        headingList.push({ text: cleanText, level: level, id: id });
-
-        return `<h${level} id="${id}">${text}</h${level}>`;
-      };
-
-      // Parse markdown to HTML
-      const htmlContent = marked.parse(markdownText, { renderer: renderer });
-      whitepaperContentArea.innerHTML = htmlContent;
-
-      // Populate Table of Contents in sidebar
-      populateToc(headingList);
-
-      // Setup scroll active highlighting
-      setupTocScrollSpy();
-
-    } else {
-      whitepaperContentArea.innerHTML = `<p style="color:red;">Marked.js 載入失敗，無法解析 Markdown 白皮書。</p>`;
-    }
-
+    renderMarkdownWhitepaper(markdownText);
   } catch (error) {
-    console.error('Error fetching/parsing whitepaper:', error);
-    whitepaperContentArea.innerHTML = `
-      <div class="text-center" style="padding: 2rem;">
-        <h4 style="color:#b91c1c;">📚 技術白皮書載入失敗</h4>
-        <p style="margin-top:0.5rem;">請確認 Python FastAPI 後端服務是否運行於 http://127.0.0.1:8000</p>
-      </div>
-    `;
+    console.warn('Backend whitepaper API failed, trying to load static markdown file fallback...', error);
+    try {
+      const fallbackResponse = await fetch('whitepaper/technical_whitepaper.md');
+      if (!fallbackResponse.ok) throw new Error('Could not fetch static whitepaper file fallback');
+      const markdownText = await fallbackResponse.text();
+      renderMarkdownWhitepaper(markdownText);
+    } catch (fallbackError) {
+      console.error('Both backend and static fallback failed:', fallbackError);
+      whitepaperContentArea.innerHTML = `
+        <div class="text-center" style="padding: 2rem;">
+          <h4 style="color:#b91c1c;">📚 技術白皮書載入失敗</h4>
+          <p style="margin-top:0.5rem;">無法取得後端 API 且無法載入靜態 Markdown 備份檔，請確認後端服務是否已啟動。</p>
+        </div>
+      `;
+    }
   }
 
   // Workaround for workspace printing: triggers normal browser print dialog
