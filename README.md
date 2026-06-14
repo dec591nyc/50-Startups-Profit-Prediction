@@ -1,6 +1,6 @@
 # 50 Startups 獲利預測與貝氏特徵分析實務平台
 
-本專案為第六份職前培訓實務作業，是一個結合統計機器學習與精美前端 SPA 面板的決策支持系統。專案採用 CRISP-DM（跨行業數據挖掘標準流程）框架，系統性整合「自定義 OLS 多元線性迴歸」與「貝氏目標編碼 (Beta Target Encoding)」，量化分析早期新創公司（50 Startups）各項營運支出與地區設立對淨利潤的影響。
+本專案結合統計機器學習與精美前端 SPA 面板的決策支持系統。專案採用 CRISP-DM（跨行業數據挖掘標準流程）框架，系統性整合「自定義 OLS 多元線性迴歸」與「貝氏目標編碼 (Beta Target Encoding)」，量化分析早期新創公司（50 Startups）各項營運支出與地區設立對淨利潤的影響。
 
 作品採用前後端分離架構，後端以 `FastAPI` 驅動，前端以原生 `HTML5`、`Vanilla CSS` 與 `JavaScript` 構建手繪白板風（Excalidraw 質感）互動介面，整合模擬器、A4 實務海報、線上 PPT 簡報、白皮書閱讀器與 TTS 語音影片導覽。
 
@@ -92,9 +92,8 @@ python main.py
 
 本專案採用前後端分離，請按照以下步驟完成雲端部署。
 
-### 步驟 1：後端 FastAPI 部署 (以 Railway / Render 為例)
+### 步驟 1：後端 FastAPI 部署 (以 Railway 為例)
 
-#### 方案 A：部署至 Railway (推薦)
 1. 註冊並登入 [Railway](https://railway.app/)。
 2. 點擊 **New Project** -> **Deploy from GitHub repo**，選擇本專案的 Repository。
 3. 部署完成後，點擊該服務卡片，進入 **Settings** 頁籤：
@@ -103,40 +102,13 @@ python main.py
 4. 進入 **Variables** 頁籤，不需特別設定，Railway 會自動注入 `PORT` 環境變數。
 5. 進入 **Settings** -> **Networking** -> 點擊 **Generate Domain** 以取得公網 API URL（例如：`https://web-production-xxxx.up.railway.app`）。
 
-#### 方案 B：部署至 Render
-1. 註冊並登入 [Render](https://render.com/)。
-2. 新增一個 **Web Service**，並連結您的 GitHub 專案。
-3. 設定部署屬性：
-   * **Environment**: `Python`
-   * **Root Directory**: `backend`
-   * **Build Command**: `pip install -r requirements.txt`
-   * **Start Command**: `uvicorn main:app --host 0.0.0.0 --port 8000` (或使用環境變數的 port)
-4. 部署完成後，取得後端雲端 API URL（例如：`https://fifty-startups-profit-prediction-api.onrender.com`）。
+### 步驟 2：前端部署 (以 Vercel / GitHub Pages 為例)
 
-### 步驟 2：修改前端後端對接地址
-1. 開啟 [frontend/app.js](file:///c:/Users/zifue/Documents/AgenticAI/GooglePlayground/50-Startups-Profit-Prediction/frontend/app.js)。
-2. 將第一行的 `BACKEND_URL` 修改為您剛部署好的 Render API URL：
-   ```javascript
-   // Constants
-   const BACKEND_URL = 'https://fifty-startups-profit-prediction-api.onrender.com';
-   ```
-3. 存檔並提交 git push。
-
-### 步驟 3：前端部署 (以 Vercel / GitHub Pages 為例)
-
-#### 方案 A：部署至 Vercel (推薦，極度簡便且支援單頁應用)
 1. 註冊並登入 [Vercel](https://vercel.com/)。
 2. 點擊 **Add New** -> **Project**，選擇本專案的 GitHub Repository 並點擊 **Import**。
 3. 在 **Configure Project** 頁面中，點擊 **Root Directory** 的 **Edit**，選擇 **`frontend`**。
 4. 點擊 **Deploy** 開始部署。
 5. 部署完成後，Vercel 會自動為您生成一個公網網址（例如：`https://50-startups-profit-prediction.vercel.app`）。您可直接開啟此網址存取本專案！
-
-#### 方案 B：部署到 GitHub Pages
-1. 進入您 GitHub Repository 的 **Settings** -> **Pages**。
-2. 在 **Build and deployment** 下，Source 選擇 `Deploy from a branch`。
-3. Branch 選擇 `main`，資料夾選擇 `/root`。
-4. 點擊儲存，GitHub 將自動構建並發布您的網頁。
-5. 您的 Live Demo 地址將會是：`https://<您的帳號>.github.io/50-Startups-Profit-Prediction/frontend/index.html`。
 
 ---
 
@@ -183,7 +155,7 @@ python main.py
 
 ## 開發收穫
 
-本專案作為機器學習實務的深化練習，為我們帶來了幾項關鍵的開發收穫：
+本專案作為機器學習實務的深化練習，帶來幾項關鍵的開發收穫：
 
 * **商業可解釋性的重要性**：在 VC 風險投資決策中，「白盒模型」所提供的統計顯著性（p-Value）比黑盒預測精準度更具備說服力。透過 OLS 統計參數，我們能明確說出「每投資 1 美元研發，能邊際提升 0.81 美元利潤」，從而科學化地進行資源配置。
 * **貝氏特徵工程的 PoC 價值**：State 變數僅包含三個類別（$K=3$），在數學上使用 BTE 是顯著的「過度設計與設計冗餘」。但在本專案中將其作為一個工業級的概念驗證（PoC），完整展示了如何在高基數特徵（如上百個測站或商品類別）的情境下，以先驗平滑因子 $m$ 控制噪聲，並壓縮為 2 個實數特徵防止維度災難與過度擬合。
