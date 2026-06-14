@@ -21,7 +21,7 @@
 
 ```mermaid
 flowchart TD
-    subgraph Frontend [原生單頁網頁 SPA]
+    subgraph Frontend ["原生單頁網頁 SPA"]
         A[主面板 index.html] -->|1. 選擇參數/輸入支出| B[參數模擬器]
         A -->|2. 線上放映| C[Marp 簡報 PPT]
         A -->|3. API 數據渲染| D[白皮書閱讀器]
@@ -29,10 +29,11 @@ flowchart TD
         B -->|繪製| F[HTML5 Canvas 散佈圖]
     end
 
-    subgraph Backend [FastAPI 統計計算服務]
+    subgraph Backend [FastAPI 模擬計算功能]
         G[main.py 路由與控制] -->|特徵轉換| H[CustomOneHot / BetaTarget Encoders]
         G -->|OLS 求解 & 統計指標| I[CustomMultipleLinearRegression]
-        G -->|JSON API 響應| J[/api/train & /api/predict]
+        G -->|JSON API 響應| J["/api/train & /api/predict"]
+
     end
 
     B -->|非同步 Fetch 請求| G
