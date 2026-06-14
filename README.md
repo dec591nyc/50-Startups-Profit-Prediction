@@ -74,7 +74,7 @@ pip install -r requirements.txt
 ```bash
 python main.py
 ```
-後端服務將會預設運行在：`http://127.0.0.1:8000`。
+後端服務將會預設運行在：`http://127.0.0.1:8080`。
 
 ### 2. 前端網頁開啟
 由於項目已經優化為完全自包含的 `frontend` 資料夾結構，您可以：
