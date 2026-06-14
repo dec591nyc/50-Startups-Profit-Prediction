@@ -21,6 +21,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://50-startups-profit-prediction.vercel.app",
+        "https://dec591nyc.github.io",
         "http://localhost:3000",
         "http://127.0.0.1:5500"
     ],
