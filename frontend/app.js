@@ -1,5 +1,7 @@
 // Constants
-const BACKEND_URL = "https://50-startups-profit-prediction.up.railway.app";
+const BACKEND_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+  ? "http://127.0.0.1:8000"
+  : "https://50-startups-profit-prediction.up.railway.app";
 
 // Global State
 let currentSlide = 1;
@@ -67,6 +69,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initial model fit
   fitModel();
+
+  // Auto-render math in the static page (like PPT slides)
+  if (typeof renderMathInElement !== 'undefined') {
+    renderMathInElement(document.getElementById('slide-deck'), {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ],
+      ignoredClasses: ['slide-table', 'handwritten'],
+      throwOnError: false
+    });
+  }
 });
 
 // ------------------ TAB SYSTEM ------------------
@@ -344,6 +358,17 @@ function showOlsDetail(featureKey) {
 
   olsDetailTitle.innerHTML = `💡 參數解讀：${featureKey} (${info.chinese})`;
   olsDetailContent.innerHTML = info.explanation;
+
+  if (typeof renderMathInElement !== 'undefined') {
+    renderMathInElement(olsDetailContent, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ],
+      throwOnError: false
+    });
+  }
+
   olsDetailDisplay.classList.remove('hidden');
   olsDetailDisplay.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
@@ -693,6 +718,27 @@ function goToSlide(slideNum) {
 // ------------------ WHITEPAPER DOCUMENT READER ------------------
 function renderMarkdownWhitepaper(markdownText) {
   if (typeof marked !== 'undefined') {
+    // Extract math blocks to placeholders to prevent Marked from parsing them
+    const mathBlocks = [];
+    
+    // 1. Replace block math ($$ ... $$)
+    let processedText = markdownText.replace(/(?<!\\)\$\$([\s\S]*?)(?<!\\)\$\$/g, (match, equation) => {
+      const placeholder = `@@BLOCKMATH_${mathBlocks.length}@@`;
+      mathBlocks.push({ placeholder, equation, isBlock: true });
+      return placeholder;
+    });
+    
+    // 2. Replace inline math ($ ... $)
+    processedText = processedText.replace(/(?<!\\)\$([^\$\n]+?)(?<!\\)\$/g, (match, equation) => {
+      // Skip numbers/currencies like $100 or $6,742.30
+      if (/^\d[\d,]*(\.\d+)?$/.test(equation.trim())) {
+        return match;
+      }
+      const placeholder = `@@INLINEMATH_${mathBlocks.length}@@`;
+      mathBlocks.push({ placeholder, equation, isBlock: false });
+      return placeholder;
+    });
+
     // Customize marked header renderer to add anchors automatically
     const renderer = new marked.Renderer();
     const headingList = [];
@@ -701,7 +747,10 @@ function renderMarkdownWhitepaper(markdownText) {
       let text = typeof data === 'string' ? data : (data.text || '');
       let level = typeof data === 'string' ? arguments[1] : (data.depth || 1);
       // Create an ID clean of special symbols for scroll links
-      const cleanText = text.replace(/<[^>]*>/g, '').trim();
+      let cleanText = text.replace(/<[^>]*>/g, '').trim();
+      mathBlocks.forEach(item => {
+        cleanText = cleanText.replaceAll(item.placeholder, '');
+      });
       const id = 'section-' + cleanText.toLowerCase().replace(/[^\w\u4e00-\u9fa5]+/g, '-');
 
       headingList.push({ text: cleanText, level: level, id: id });
@@ -710,8 +759,26 @@ function renderMarkdownWhitepaper(markdownText) {
     };
 
     // Parse markdown to HTML
-    const htmlContent = marked.parse(markdownText, { renderer: renderer });
+    let htmlContent = marked.parse(processedText, { renderer: renderer });
+
+    // Restore math blocks as LaTeX strings
+    mathBlocks.forEach(item => {
+      const replacement = item.isBlock ? `$$${item.equation}$$` : `$${item.equation}$`;
+      htmlContent = htmlContent.replaceAll(item.placeholder, replacement);
+    });
+
     whitepaperContentArea.innerHTML = htmlContent;
+
+    // Call KaTeX on this element
+    if (typeof renderMathInElement !== 'undefined') {
+      renderMathInElement(whitepaperContentArea, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false}
+        ],
+        throwOnError: false
+      });
+    }
 
     // Populate Table of Contents in sidebar
     populateToc(headingList);

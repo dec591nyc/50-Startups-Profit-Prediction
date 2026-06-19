@@ -14,6 +14,10 @@
     rel="stylesheet">
   <!-- Load Marked.js for Markdown parsing -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- Load KaTeX for LaTeX rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 </head>
 
 <body>
@@ -515,7 +519,7 @@
                         <div class="step-desc">
                           <strong>先驗與後驗更新</strong>：<br>
                           計算全域均值 $p$，以平滑係數 $m$ 決定先驗。結合觀測更新後驗期望：<br>
-                          <div class="formula">E[y_{norm} | c] = (S_c + m·p) / (n_c + m)</div>
+                          <div class="formula">$$E[y_{norm} | c] = \frac{S_c + m \cdot p}{n_c + m}$$</div>
                         </div>
                       </div>
                       <div class="math-step card-style">
@@ -523,8 +527,7 @@
                         <div class="step-desc">
                           <strong>後驗均值與方差雙特徵</strong>：<br>
                           同時提取代表不確定性的方差：<br>
-                          <div class="formula">Var(y_{norm} | c) = (\alpha·\beta) / [(\alpha+\beta)^2(\alpha+\beta+1)]
-                          </div>
+                          <div class="formula">$$Var(y_{norm} | c) = \frac{\alpha \cdot \beta}{(\alpha+\beta)^2(\alpha+\beta+1)}$$</div>
                           並逆變換回美元尺度。
                         </div>
                       </div>
@@ -547,10 +550,9 @@
                         <h4 class="handwritten">📐 OLS 矩陣偏微分證明</h4>
                         <p>為最小化殘差平方和 $S(\boldsymbol{\beta}) = (\mathbf{y} - X\boldsymbol{\beta})^T (\mathbf{y} -
                           X\boldsymbol{\beta})$，對其求一階導數並令其為零：</p>
-                        <div class="formula-block">-2 X^T \mathbf{y} + 2 X^T X \hat{\boldsymbol{\beta}} = \mathbf{0}
-                        </div>
+                        <div class="formula-block">$$-2 X^T \mathbf{y} + 2 X^T X \hat{\boldsymbol{\beta}} = \mathbf{0}$$</div>
                         <p>在 $X^T X$ 可逆的假設下，得到唯一解析解：</p>
-                        <div class="formula-block">\hat{\boldsymbol{\beta}} = (X^T X)^{-1} X^T \mathbf{y}</div>
+                        <div class="formula-block">$$\hat{\boldsymbol{\beta}} = (X^T X)^{-1} X^T \mathbf{y}$$</div>
                       </div>
                       <div class="slide-col">
                         <h4 class="handwritten">📊 白盒推論 (Inference)</h4>
